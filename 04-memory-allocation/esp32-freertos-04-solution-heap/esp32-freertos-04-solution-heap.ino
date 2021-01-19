@@ -9,6 +9,9 @@
  * License: 0BSD
  */
 
+// If your Arduino board does not have LED_BUILTIN, set it here to LED pin
+//#define LED_BUILTIN 13
+
 // Use only core 1 for demo purposes
 #if CONFIG_FREERTOS_UNICORE
   static const BaseType_t app_cpu = 0;
@@ -39,7 +42,7 @@ void readSerial(void *parameters) {
   // Loop forever
   while (1) {
 
-    // Read cahracters from serial
+    // Read characters from serial
     if (Serial.available() > 0) {
       c = Serial.read();
 

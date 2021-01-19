@@ -15,7 +15,7 @@
   static const BaseType_t app_cpu = 1;
 #endif
 
-// Task: smash all the stack!
+// Task: Perform some mundane task
 void testTask(void *parameter) {
   while (1) {
     int a = 1;
@@ -67,12 +67,12 @@ void setup() {
   // Wait a moment to start (so we don't miss Serial output)
   vTaskDelay(1000 / portTICK_PERIOD_MS);
   Serial.println();
-  Serial.println("---FreeRTOS Stack Overflow Demo---");
+  Serial.println("---FreeRTOS Memory Demo---");
 
   // Start the only other task
   xTaskCreatePinnedToCore(testTask,
                           "Test Task",
-                          1500,         // You would want to increase this
+                          1500,
                           NULL,
                           1,
                           NULL,
