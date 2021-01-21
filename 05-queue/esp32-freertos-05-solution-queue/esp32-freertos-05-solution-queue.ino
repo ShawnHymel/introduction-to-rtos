@@ -24,7 +24,7 @@
 static const uint8_t buf_len = 255;     // Size of buffer to look for command
 static const char command[] = "delay "; // Note the space!
 static const int delay_queue_len = 5;   // Size of delay_queue
-static const int msg_queue_len = 3;     // Size of msg_queue
+static const int msg_queue_len = 5;     // Size of msg_queue
 static const uint8_t blink_max = 100;   // Num times to blink before message
 
 // Pins (change this if your Arduino board does not have LED_BUILTIN defined)
@@ -61,7 +61,7 @@ void doCLI(void *parameters) {
   while (1) {
 
     // See if there's a message in the queue (do not block)
-    if (xQueueReceive(msg_queue, &rcv_msg, 0) == pdTRUE) {
+    if (xQueueReceive(msg_queue, (void *)&rcv_msg, 0) == pdTRUE) {
       Serial.print(rcv_msg.body);
       Serial.println(rcv_msg.count);
     }
@@ -122,8 +122,12 @@ void blinkLED(void *parameters) {
   while (1) {
 
     // See if there's a message in the queue (do not block)
-    if (xQueueReceive(delay_queue, &led_delay, 0) == pdTRUE) {
-      Serial.println("Message received");
+    if (xQueueReceive(delay_queue, (void *)&led_delay, 0) == pdTRUE) {
+
+      // Best practice: use only one task to manage serial comms
+      strcpy(msg.body, "Message received ");
+      msg.count = 1;
+      xQueueSend(msg_queue, (void *)&msg, 10);
     }
 
     // Blink
@@ -132,16 +136,14 @@ void blinkLED(void *parameters) {
     digitalWrite(led_pin, LOW);
     vTaskDelay(led_delay / portTICK_PERIOD_MS);
 
-    // If we've blinked 10 times, send a message to the other task
+    // If we've blinked 100 times, send a message to the other task
     counter++;
     if (counter >= blink_max) {
       
       // Construct message and send
       strcpy(msg.body, "Blinked: ");
       msg.count = counter;
-      if (xQueueSend(msg_queue, (void *)&msg, 0) != pdTRUE) {
-        Serial.println("ERROR: Could not put item on message queue.");
-      }
+      xQueueSend(msg_queue, (void *)&msg, 10);
 
       // Reset counter
       counter = 0;
