@@ -1,13 +1,13 @@
 /**
- * FreeRTOS Mutex Solution
+ * FreeRTOS Binary Semaphore Demo
  * 
- * Pass a parameter to a task using a mutex.
+ * Pass a parameter to a task using a binary semaphore.
  * 
- * Date: January 20, 2021
+ * Date: January 23, 2021
  * Author: Shawn Hymel
  * License: 0BSD
  */
-
+ 
 // You'll likely need this on vanilla FreeRTOS
 //#include semphr.h
 
@@ -22,7 +22,7 @@
 static const int led_pin = LED_BUILTIN;
 
 // Globals
-static SemaphoreHandle_t mutex;
+static SemaphoreHandle_t bin_sem;
 
 //*****************************************************************************
 // Tasks
@@ -33,8 +33,8 @@ void blinkLED(void *parameters) {
   // Copy the parameter into a local variable
   int num = *(int *)parameters;
 
-  // Release the mutex so that the creating function can finish
-  xSemaphoreGive(mutex);
+  // Release the binary semaphore so that the creating function can finish
+  xSemaphoreGive(bin_sem);
 
   // Print the parameter
   Serial.print("Received: ");
@@ -76,11 +76,8 @@ void setup() {
   Serial.print("Sending: ");
   Serial.println(delay_arg);
   
-  // Create mutex before starting tasks
-  mutex = xSemaphoreCreateMutex();
-
-  // Take the mutex
-  xSemaphoreTake(mutex, portMAX_DELAY);
+  // Create binary semaphore before starting tasks
+  bin_sem = xSemaphoreCreateBinary();
 
   // Start task 1
   xTaskCreatePinnedToCore(blinkLED,
@@ -91,8 +88,8 @@ void setup() {
                           NULL,
                           app_cpu);
 
-  // Do nothing until mutex has been returned (maximum delay)
-  xSemaphoreTake(mutex, portMAX_DELAY);
+  // Do nothing until binary semaphore has been returned
+  while (xSemaphoreTake(bin_sem, 0) != pdTRUE);
 
   // Show that we accomplished our task of passing the stack-based argument
   Serial.println("Done!");
