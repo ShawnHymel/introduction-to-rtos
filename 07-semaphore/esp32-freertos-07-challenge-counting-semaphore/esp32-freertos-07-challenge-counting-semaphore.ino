@@ -35,7 +35,6 @@ static int buf[BUF_SIZE];             // Shared buffer
 static int head = 0;                  // Writing index to buffer
 static int tail = 0;                  // Reading index to buffer
 static SemaphoreHandle_t bin_sem;     // Waits for parameter to be read
-static SemaphoreHandle_t mutex;       // Lock access to buffer and Serial
 
 //*****************************************************************************
 // Tasks
@@ -93,7 +92,6 @@ void setup() {
 
   // Create mutexes and semaphores before starting tasks
   bin_sem = xSemaphoreCreateBinary();
-  mutex = xSemaphoreCreateMutex();
 
   // Start producer tasks (wait for each to read argument)
   for (int i = 0; i < num_prod_tasks; i++) {

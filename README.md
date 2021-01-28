@@ -6,7 +6,7 @@ Welcome to the demo code and solutions section of my Introduction to RTOS course
 
 This course is hosted on YouTube that you may take for free. All you need to do is watch the videos and complete the challenge issued at the end of each video. I highly recommend you try each challenge before peeking at the solutions here.
 
-The first video in the series is found here: %%%TODO: LINK%%%
+The first video in the series is found here: [Introduction to RTOS Part 1 - What is a Real-Time Operating System (RTOS)?](https://www.youtube.com/watch?v=F321087yYy4)
 
 Written guides that explain the solutions can be found [among my maker.io projects](https://www.digikey.com/en/maker/profiles/72825bdd887a427eaf8d960b6505adac).
 
@@ -14,10 +14,13 @@ Written guides that explain the solutions can be found [among my maker.io projec
 
 Examples and solutions are housed in dirctories that correspond to each chapter or video number. For example, if you watch "Intro to RTOS Part 3 - Task Scheduling," you should refer to the directory *03-task-scheduling-and-management.* In it, you will find 2 directories, one marked "demo" that gives the finished demo code used during the video (so you may run it and examine it at your own pace) and another marked "solution" that provides one possible solution to the challenge issued at the end of the video.
 
+If a challenge is issued in a video that starts with some code, it will be listed as a *challenge* Arduino sketch in the naming scheme shown below.
+
 Directories are in the following structure (where xx is the part or chapter number):
 
 ```
 xx-<name of chapter>
+|- esp32-freertos-xx-challenge-<name>
 |- esp32-freertos-xx-demo-<name>
 |- esp32-freertos-xx-solution-<name>
 ```

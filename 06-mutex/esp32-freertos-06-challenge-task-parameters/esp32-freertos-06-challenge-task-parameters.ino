@@ -1,13 +1,13 @@
 /**
- * FreeRTOS Binary Semaphore Demo
+ * FreeRTOS Mutex Challenge
  * 
- * Pass a parameter to a task using a binary semaphore.
+ * Pass a parameter to a task using a mutex.
  * 
- * Date: January 23, 2021
+ * Date: January 20, 2021
  * Author: Shawn Hymel
  * License: 0BSD
  */
- 
+
 // You'll likely need this on vanilla FreeRTOS
 //#include semphr.h
 
@@ -21,9 +21,6 @@
 // Pins (change this if your Arduino board does not have LED_BUILTIN defined)
 static const int led_pin = LED_BUILTIN;
 
-// Globals
-static SemaphoreHandle_t bin_sem;
-
 //*****************************************************************************
 // Tasks
 
@@ -32,9 +29,6 @@ void blinkLED(void *parameters) {
 
   // Copy the parameter into a local variable
   int num = *(int *)parameters;
-
-  // Release the binary semaphore so that the creating function can finish
-  xSemaphoreGive(bin_sem);
 
   // Print the parameter
   Serial.print("Received: ");
@@ -65,7 +59,7 @@ void setup() {
   // Wait a moment to start (so we don't miss Serial output)
   vTaskDelay(1000 / portTICK_PERIOD_MS);
   Serial.println();
-  Serial.println("---FreeRTOS Mutex Solution---");
+  Serial.println("---FreeRTOS Mutex Challenge---");
   Serial.println("Enter a number for delay (milliseconds)");
 
   // Wait for input from Serial
@@ -75,9 +69,6 @@ void setup() {
   delay_arg = Serial.parseInt();
   Serial.print("Sending: ");
   Serial.println(delay_arg);
-  
-  // Create binary semaphore before starting tasks
-  bin_sem = xSemaphoreCreateBinary();
 
   // Start task 1
   xTaskCreatePinnedToCore(blinkLED,
@@ -87,9 +78,6 @@ void setup() {
                           1,
                           NULL,
                           app_cpu);
-
-  // Do nothing until binary semaphore has been returned
-  xSemaphoreTake(bin_sem, portMAX_DELAY);
 
   // Show that we accomplished our task of passing the stack-based argument
   Serial.println("Done!");

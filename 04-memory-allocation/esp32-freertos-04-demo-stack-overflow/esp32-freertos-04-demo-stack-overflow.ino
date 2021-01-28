@@ -39,6 +39,7 @@ void testTask(void *parameter) {
     // One way to prevent heap overflow is to check the malloc output
     if (ptr == NULL) {
       Serial.println("Not enough heap.");
+      vPortFree(NULL);
     } else {
       
       // Do something with the memory so it's not optimized out by the compiler
@@ -52,7 +53,7 @@ void testTask(void *parameter) {
     Serial.println(xPortGetFreeHeapSize());
 
     // Free up our allocated memory
-    vPortFree(ptr);
+    //vPortFree(ptr);
 
     // Wait for a while
     vTaskDelay(100 / portTICK_PERIOD_MS);
