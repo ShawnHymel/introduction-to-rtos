@@ -20,7 +20,7 @@
 #endif
 
 // Settings
-enum {BUF_SIZE = 10};                 // Size of buffer array
+enum {BUF_SIZE = 5};                  // Size of buffer array
 static const int num_prod_tasks = 5;  // Number of producer tasks
 static const int num_cons_tasks = 2;  // Number of consumer tasks
 static const int num_writes = 3;      // Num times each producer writes to buf
@@ -107,8 +107,8 @@ void setup() {
   // Create mutexes and semaphores before starting tasks
   bin_sem = xSemaphoreCreateBinary();
   mutex = xSemaphoreCreateMutex();
-  sem_empty = xSemaphoreCreateCounting(num_writes, num_writes);
-  sem_filled = xSemaphoreCreateCounting(num_writes, 0);
+  sem_empty = xSemaphoreCreateCounting(BUF_SIZE, BUF_SIZE);
+  sem_filled = xSemaphoreCreateCounting(BUF_SIZE, 0);
 
   // Start producer tasks (wait for each to read argument)
   for (int i = 0; i < num_prod_tasks; i++) {

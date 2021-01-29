@@ -25,7 +25,7 @@
 #endif
 
 // Settings
-enum {BUF_SIZE = 10};                 // Size of buffer array
+enum {BUF_SIZE = 5};                  // Size of buffer array
 static const int num_prod_tasks = 5;  // Number of producer tasks
 static const int num_cons_tasks = 2;  // Number of consumer tasks
 static const int num_writes = 3;      // Num times each producer writes to buf
