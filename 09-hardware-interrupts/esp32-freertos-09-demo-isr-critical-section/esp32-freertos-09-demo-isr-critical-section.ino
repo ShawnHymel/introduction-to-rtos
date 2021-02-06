@@ -35,6 +35,12 @@ void IRAM_ATTR onTimer() {
   portENTER_CRITICAL_ISR(&spinlock);
   isr_counter++;
   portEXIT_CRITICAL_ISR(&spinlock);
+
+  // Vanilla FreeRTOS version of a critical section (in an ISR)
+  //UBaseType_t saved_int_status;
+  //saved_int_status = taskENTER_CRITICAL_FROM_ISR();
+  //isr_counter++;
+  //taskEXIT_CRITICAL_FROM_ISR(saved_int_status);
 }
 
 //*****************************************************************************
@@ -53,9 +59,14 @@ void printValues(void *parameters) {
       Serial.println(isr_counter);
   
       // ESP-IDF version of a critical section (in a task)
-      portENTER_CRITICAL_ISR(&spinlock);
+      portENTER_CRITICAL(&spinlock);
       isr_counter--;
-      portEXIT_CRITICAL_ISR(&spinlock);
+      portEXIT_CRITICAL(&spinlock);
+
+      // Vanilla FreeRTOS version of a critical section (in a task)
+      //taskENTER_CRITICAL();
+      //isr_counter--;
+      //taskEXIT_CRITICAL();
     }
   
     // Wait 2 seconds while ISR increments counter a few times
