@@ -53,6 +53,7 @@ static float adc_avg;
 // Functions that can be called from anywhere (in this file)
 
 // Swap the write_to and read_from pointers in the double buffer
+// Only ISR calls this at the moment, so no need to make it thread-safe
 void IRAM_ATTR swap() {
   volatile uint16_t* temp_ptr = write_to;
   write_to = read_from;

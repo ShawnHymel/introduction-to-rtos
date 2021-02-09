@@ -88,12 +88,12 @@ void setup() {
     ESP.restart();
   }
 
-  // Start task to print out results
+  // Start task to print out results (higher priority!)
   xTaskCreatePinnedToCore(printValues,
                           "Print values",
                           1024,
                           NULL,
-                          1,
+                          2,
                           NULL,
                           app_cpu);
 
@@ -108,11 +108,8 @@ void setup() {
 
   // Allow ISR to trigger
   timerAlarmEnable(timer);
-
-  // Delete "setup and loop" task
-  vTaskDelete(NULL);
 }
 
 void loop() {
-  // Execution should never get here
+  // Do nothing, forever
 }
