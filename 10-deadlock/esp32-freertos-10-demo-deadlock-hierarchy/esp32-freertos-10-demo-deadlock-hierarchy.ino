@@ -96,7 +96,7 @@ void setup() {
   // Wait a moment to start (so we don't miss Serial output)
   vTaskDelay(1000 / portTICK_PERIOD_MS);
   Serial.println();
-  Serial.println("---FreeRTOS Sample and Process Demo---");
+  Serial.println("---FreeRTOS Deadlock Demo---");
 
   // Create mutexes before starting tasks
   mutex_1 = xSemaphoreCreateMutex();

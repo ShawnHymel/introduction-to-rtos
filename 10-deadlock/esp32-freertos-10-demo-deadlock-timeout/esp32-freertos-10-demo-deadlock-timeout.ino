@@ -19,6 +19,9 @@
   static const BaseType_t app_cpu = 1;
 #endif
 
+// Settings
+TickType_t mutex_timeout = 1000 / portTICK_PERIOD_MS;
+
 // Globals
 static SemaphoreHandle_t mutex_1;
 static SemaphoreHandle_t mutex_2;
@@ -33,14 +36,14 @@ void doTaskA(void *parameters) {
   while (1) {
 
     // Take mutex 1
-    if (xSemaphoreTake(mutex_1, 1000 / portTICK_PERIOD_MS) == pdTRUE) {
+    if (xSemaphoreTake(mutex_1, mutex_timeout) == pdTRUE) {
 
       // Say we took mutex 1 and wait (to force deadlock)
       Serial.println("Task A took mutex 1");
       vTaskDelay(1 / portTICK_PERIOD_MS);
   
       // Take mutex 2
-      if (xSemaphoreTake(mutex_2, 1000 / portTICK_PERIOD_MS) == pdTRUE) {
+      if (xSemaphoreTake(mutex_2, mutex_timeout) == pdTRUE) {
 
         // Say we took mutex 2
         Serial.println("Task A took mutex 2");
@@ -72,14 +75,14 @@ void doTaskB(void *parameters) {
   while (1) {
 
     // Take mutex 2
-    if (xSemaphoreTake(mutex_2, 1000 / portTICK_PERIOD_MS) == pdTRUE) {
+    if (xSemaphoreTake(mutex_2, mutex_timeout) == pdTRUE) {
 
       // Say we took mutex 2 and wait (to force deadlock)
       Serial.println("Task B took mutex 2");
       vTaskDelay(1 / portTICK_PERIOD_MS);
   
       // Take mutex 1
-      if (xSemaphoreTake(mutex_1, 1000 / portTICK_PERIOD_MS) == pdTRUE) {
+      if (xSemaphoreTake(mutex_1, mutex_timeout) == pdTRUE) {
 
         // Say we took mutex 1
         Serial.println("Task B took mutex 1");
@@ -115,7 +118,7 @@ void setup() {
   // Wait a moment to start (so we don't miss Serial output)
   vTaskDelay(1000 / portTICK_PERIOD_MS);
   Serial.println();
-  Serial.println("---FreeRTOS Sample and Process Demo---");
+  Serial.println("---FreeRTOS Deadlock Demo---");
 
   // Create mutexes before starting tasks
   mutex_1 = xSemaphoreCreateMutex();

@@ -99,7 +99,7 @@ void setup() {
   // Wait a moment to start (so we don't miss Serial output)
   vTaskDelay(1000 / portTICK_PERIOD_MS);
   Serial.println();
-  Serial.println("---FreeRTOS Dining Philosophers Challenge---");
+  Serial.println("---FreeRTOS Dining Philosophers Hierarchy Solution---");
 
   // Create kernel objects before starting tasks
   bin_sem = xSemaphoreCreateBinary();
