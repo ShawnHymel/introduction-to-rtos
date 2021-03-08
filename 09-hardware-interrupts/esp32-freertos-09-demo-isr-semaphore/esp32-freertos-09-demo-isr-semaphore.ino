@@ -19,7 +19,7 @@
 #endif
 
 // Settings
-static const uint16_t timer_divider = 80;
+static const uint16_t timer_divider = 80; // Count at 1 MHz
 static const uint64_t timer_max_count = 1000000;
 
 // Pins
