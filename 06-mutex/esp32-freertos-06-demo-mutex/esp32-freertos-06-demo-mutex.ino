@@ -41,12 +41,14 @@ void incTask(void *parameters) {
       local_var++;
       vTaskDelay(random(100, 500) / portTICK_PERIOD_MS);
       shared_var = local_var;
+      
+      // Print out new shared variable
+      // This is different than in the video--print shared_var inside the
+      // critical section to avoid having it be changed by the other task.
+      Serial.println(shared_var);
   
       // Give mutex after critical section
       xSemaphoreGive(mutex);
-
-      // Print out new shared variable
-      Serial.println(shared_var);
 
     } else {
       // Do something else
