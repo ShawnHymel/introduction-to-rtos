@@ -247,7 +247,7 @@ void setup() {
   msg_queue = xQueueCreate(MSG_QUEUE_LEN, sizeof(Message));
 
   // Start task to handle command line interface events. Let's set it at a
-  // higher priority but only run it once every 20 ms.
+  // higher priority but only run it once every 10 ms.
   xTaskCreatePinnedToCore(doCLI,
                           "Do CLI",
                           1024,
