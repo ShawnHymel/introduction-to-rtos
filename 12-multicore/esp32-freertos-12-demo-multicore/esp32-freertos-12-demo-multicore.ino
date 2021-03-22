@@ -86,8 +86,8 @@ void setup() {
                           NULL,
                           1,
                           NULL,
-                          pro_cpu);
-//                          tskNO_AFFINITY);
+//                          pro_cpu);
+                          tskNO_AFFINITY);
 
   // Start Task H (low priority)
   xTaskCreatePinnedToCore(doTaskH,
@@ -96,8 +96,8 @@ void setup() {
                           NULL,
                           2,
                           NULL,
-                          pro_cpu);
-//                          tskNO_AFFINITY);
+//                          pro_cpu);
+                          tskNO_AFFINITY);
 
   // Delete "setup and loop" task
   vTaskDelete(NULL);

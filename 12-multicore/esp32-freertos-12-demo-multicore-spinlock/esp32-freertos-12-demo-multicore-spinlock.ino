@@ -13,7 +13,7 @@ static const BaseType_t pro_cpu = 0;
 static const BaseType_t app_cpu = 1;
 
 // Settings
-static const TickType_t time_hog = 200;  // Time (ms) hogging the CPU in Task 1
+static const TickType_t time_hog = 1;  // Time (ms) hogging the CPU in Task 1
 static const TickType_t task_0_delay = 30; // Time (ms) Task 0 blocks itself
 static const TickType_t task_1_delay = 100; // Time (ms) Task 1 blocks itself
 
@@ -48,7 +48,7 @@ void doTask0(void *parameters) {
   // Do forever
   while (1) {
 
-    // Toggle LED
+    // Toggle pin
     portENTER_CRITICAL(&spinlock);
     digitalWrite(pin_0, !digitalRead(pin_0));
     portEXIT_CRITICAL(&spinlock);

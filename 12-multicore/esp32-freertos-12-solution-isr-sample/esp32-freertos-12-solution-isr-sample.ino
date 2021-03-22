@@ -174,6 +174,13 @@ void calcAverage(void *parameters) {
   Message msg;
   float avg;
 
+  // Start a timer to run ISR every 100 ms
+  // %%% We move this here so it runsin core 0
+  timer = timerBegin(0, timer_divider, true);
+  timerAttachInterrupt(timer, &onTimer, true);
+  timerAlarmWrite(timer, timer_max_count, true);
+  timerAlarmEnable(timer);
+
   // Loop forever, wait for semaphore, and print value
   while (1) {
 
@@ -258,12 +265,6 @@ void setup() {
                           1,
                           &processing_task,
                           pro_cpu);
-
-  // Start a timer to run ISR every 100 ms
-  timer = timerBegin(0, timer_divider, true);
-  timerAttachInterrupt(timer, &onTimer, true);
-  timerAlarmWrite(timer, timer_max_count, true);
-  timerAlarmEnable(timer);
 
   // Delete "setup and loop" task
   vTaskDelete(NULL);
