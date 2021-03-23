@@ -12,7 +12,7 @@
  */
 
 // You'll likely need this on vanilla FreeRTOS
-//#include semphr.h
+//#include <semphr.h>
 
 // Core definitions (assuming you have dual-core ESP32)
 // %%% We can use both cores now
