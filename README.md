@@ -4,7 +4,11 @@ Welcome to the demo code and solutions section of my Introduction to RTOS course
 
 ![Intro to RTOS course logo](https://raw.githubusercontent.com/ShawnHymel/introduction-to-rtos/main/images/intro-to-rtos.png)
 
-This course is hosted on YouTube that you may take for free. All you need to do is watch the videos and complete the challenge issued at the end of each video. I highly recommend you try each challenge before peeking at the solutions here.
+This course is hosted on YouTube that you may take for free. All you need to do is watch the videos and complete the challenge issued at the end of each video. I highly recommend you try each challenge before peeking at the solutions here. The PowerPoint slides are also made available (under the CC BY 4.0 license) if you wish to use or modify them for review or teaching your own RTOS class.
+
+| Chapter | Title | Video | Solution | Slides |
+|---------|-------|-------|----------|--------|
+| 01 | Getting Started with FreeRTOS | [[video]](https://www.youtube.com/watch?v=F321087yYy4&list=PLEBQazB0HUyQ4hAPU1cJED6t3DU0h34bz) | [[guide]](https://www.digikey.com/en/maker/projects/what-is-a-realtime-operating-system-rtos/28d8087f53844decafa5000d89608016) | [[slides]]() |
 
 The first video in the series is found here: [Introduction to RTOS Part 1 - What is a Real-Time Operating System (RTOS)?](https://www.youtube.com/watch?v=F321087yYy4)
 
@@ -27,7 +31,11 @@ xx-<name of chapter>
 
 The only exception to this is the *images* directory, which is where I keep images for this repository.
 
+PowerPoint slides used in each video can be found within the respective *xx-<name of chapter>* directory.
+
 ## License
+
+PowerPoint slides are licensed under the [Creative Commons CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).
 
 All code in this repository, unless otherwise noted, is licensed under the [Zero-Clause BSD / Free Public License 1.0.0 (0BSD)](https://opensource.org/licenses/0BSD).
 
