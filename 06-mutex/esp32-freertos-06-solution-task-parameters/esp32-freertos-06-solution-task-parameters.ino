@@ -29,19 +29,18 @@ static SemaphoreHandle_t mutex;
 
 // Blink LED based on rate passed by parameter
 void blinkLED(void *parameters) {
+  // Take the mutex -> this our critical section 
+  xSemaphoreTake(mutex, portMAX_DELAY);
 
   // Copy the parameter into a local variable
   int num = *(int *)parameters;
 
-  // Release the mutex so that the creating function can finish
+  // Release the mutex so that setup() function can finish
   xSemaphoreGive(mutex);
 
   // Print the parameter
   Serial.print("Received: ");
   Serial.println(num);
-
-  // Configure the LED pin
-  pinMode(led_pin, OUTPUT);
 
   // Blink forever and ever
   while (1) {
@@ -58,6 +57,9 @@ void blinkLED(void *parameters) {
 void setup() {
 
   long int delay_arg;
+
+  // Configure the LED pin
+  pinMode(led_pin, OUTPUT);
 
   // Configure Serial
   Serial.begin(115200);
@@ -79,9 +81,6 @@ void setup() {
   // Create mutex before starting tasks
   mutex = xSemaphoreCreateMutex();
 
-  // Take the mutex
-  xSemaphoreTake(mutex, portMAX_DELAY);
-
   // Start task 1
   xTaskCreatePinnedToCore(blinkLED,
                           "Blink LED",
@@ -91,7 +90,10 @@ void setup() {
                           NULL,
                           app_cpu);
 
-  // Do nothing until mutex has been returned (maximum delay)
+  // one tick delay to make sure mutex is acquired by other task
+  vTaskDelay(portTICK_PERIOD_MS);
+
+  // take mutex (this will be blocked until blinkLED releases it)
   xSemaphoreTake(mutex, portMAX_DELAY);
 
   // Show that we accomplished our task of passing the stack-based argument
