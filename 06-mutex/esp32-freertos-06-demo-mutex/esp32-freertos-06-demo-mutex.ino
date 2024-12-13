@@ -45,6 +45,7 @@ void incTask(void *parameters) {
       // Print out new shared variable
       // This is different than in the video--print shared_var inside the
       // critical section to avoid having it be changed by the other task.
+      Serial.print(pcTaskGetName(NULL)); Serial.print(" : ");
       Serial.println(shared_var);
   
       // Give mutex after critical section
