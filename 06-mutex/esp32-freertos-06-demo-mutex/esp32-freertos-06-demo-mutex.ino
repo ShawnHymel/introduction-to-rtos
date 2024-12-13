@@ -49,6 +49,7 @@ void incTask(void *parameters) {
   
       // Give mutex after critical section
       xSemaphoreGive(mutex);
+      taskYIELD();  // give the other task a chance to run
 
     } else {
       // Do something else
@@ -77,7 +78,7 @@ void setup() {
 
   // Start task 1
   xTaskCreatePinnedToCore(incTask,
-                          "Increment Task 1",
+                          "IncTask 1",  // Note: max length of taskname parameter is 16 (including '\0')
                           1024,
                           NULL,
                           1,
@@ -86,7 +87,7 @@ void setup() {
 
   // Start task 2
   xTaskCreatePinnedToCore(incTask,
-                          "Increment Task 2",
+                          "IncTask 2",   // Note: max length of taskname parameter is 16 (including '\0')
                           1024,
                           NULL,
                           1,
