@@ -6,6 +6,8 @@ Welcome to the demo code and solutions section of my Introduction to RTOS course
 
 This course is hosted on YouTube that you may take for free. All you need to do is watch the videos and complete the challenge issued at the end of each video. I highly recommend you try each challenge before peeking at the solutions here. The PowerPoint slides are also made available (under the CC BY 4.0 license) if you wish to use or modify them for review or teaching your own RTOS class. If you use the slides, please give credit to **Shawn Hymel** and **Digi-Key Electronics** in your slides (as per the [CC BY 4.0 requirements](https://creativecommons.org/licenses/by/4.0/)).
 
+> Want to try the code without hardware? Check out *aslansq*'s implementation of this series with QEMU: [https://github.com/aslansq/freertos_intro_qemu](https://github.com/aslansq/freertos_intro_qemu)
+
 | Chapter | Title | Video | Solution | Slides |
 |---------|-------|-------|----------|--------|
 | 01 | What is an RTOS | [[video]](https://www.youtube.com/watch?v=F321087yYy4&list=PLEBQazB0HUyQ4hAPU1cJED6t3DU0h34bz&index=1) | [[solution]](https://www.digikey.com/en/maker/projects/what-is-a-realtime-operating-system-rtos/28d8087f53844decafa5000d89608016) | [[slides]](01-what-is-an-rtos/rtos-part-01.pptx?raw=true) |
